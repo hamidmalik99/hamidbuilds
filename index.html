@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Hamid — WordPress Developer & Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0a0a0a;
-    --bg2: #111111;
-    --bg3: #181818;
-    --border: rgba(255,255,255,0.07);
-    --text: #e8e4dc;
-    --muted: #6b6760;
-    --accent: #c9a96e;
-    --accent2: #3d6b5e;
-    --white: #f5f1ea;
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+ :root {
+    --bg: #141414;
+    --bg2: #1a1a1a;
+    --bg3: #202020;
+    --border: rgba(255,255,255,0.09);
+    --text: #d4d4d4;
+    --muted: #5a5a5a;
+    --accent: #ffffff;
+    --accent2: #a0a0a0;
+    --white: #ffffff;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +26,7 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Instrument Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
@@ -58,7 +58,7 @@
   }
 
   .nav-logo {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.25rem;
     color: var(--accent);
     letter-spacing: 0.02em;
@@ -74,7 +74,7 @@
     color: var(--muted);
     text-decoration: none;
     font-size: 0.8rem;
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     transition: color 0.2s;
@@ -104,7 +104,7 @@
   }
 
   .hero-eyebrow {
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.72rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -115,7 +115,7 @@
   }
 
   .hero h1 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: clamp(3rem, 8vw, 7.5rem);
     line-height: 1.0;
     color: var(--white);
@@ -151,7 +151,7 @@
     background: var(--accent);
     color: #0a0a0a;
     padding: 14px 32px;
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.78rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -167,7 +167,7 @@
     background: transparent;
     color: var(--text);
     padding: 14px 32px;
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.78rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -191,13 +191,13 @@
 
   .hero-stat { text-align: right; }
   .hero-stat-num {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 2.4rem;
     color: var(--accent);
     line-height: 1;
   }
   .hero-stat-label {
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.65rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -208,7 +208,7 @@
   section { padding: 120px 48px; }
 
   .section-label {
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.68rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -243,7 +243,7 @@
   }
 
   .services-header h2 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 4vw, 3.2rem);
     color: var(--white);
     max-width: 420px;
@@ -295,7 +295,7 @@
   }
 
   .service-card h3 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.15rem;
     color: var(--white);
     margin-bottom: 10px;
@@ -318,7 +318,7 @@
   }
 
   .work-intro h2 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 4vw, 3.2rem);
     color: var(--white);
     line-height: 1.15;
@@ -353,14 +353,14 @@
   .project-row:hover { padding-left: 12px; }
 
   .project-num {
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
     color: var(--muted);
     letter-spacing: 0.1em;
   }
 
   .project-info h3 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.35rem;
     color: var(--white);
     transition: color 0.2s;
@@ -382,7 +382,7 @@
   }
 
   .tag {
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.62rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -406,7 +406,7 @@
   }
 
   #process h2 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 4vw, 3.2rem);
     color: var(--white);
     margin-bottom: 72px;
@@ -429,7 +429,7 @@
   }
 
   .step-num {
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.65rem;
     letter-spacing: 0.2em;
     color: var(--accent);
@@ -438,7 +438,7 @@
   }
 
   .step h3 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
     color: var(--white);
     margin-bottom: 12px;
@@ -454,7 +454,7 @@
   #stack { background: var(--bg); }
 
   #stack h2 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 4vw, 3.2rem);
     color: var(--white);
     margin-bottom: 16px;
@@ -469,7 +469,7 @@
   .stack-category { margin-bottom: 48px; }
 
   .stack-category-label {
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.65rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -506,7 +506,7 @@
   }
 
   .stack-card-name {
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.75rem;
     letter-spacing: 0.06em;
     color: var(--text);
@@ -524,7 +524,7 @@
   #contact .section-label::after { display: none; }
 
   #contact h2 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: clamp(2.5rem, 6vw, 5.5rem);
     color: var(--white);
     line-height: 1.05;
@@ -561,7 +561,7 @@
     border: 1px solid var(--border);
     color: var(--text);
     padding: 14px 18px;
-    font-family: 'Instrument Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     outline: none;
     transition: border-color 0.2s;
@@ -586,7 +586,7 @@
     color: #0a0a0a;
     border: none;
     padding: 16px;
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.78rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -610,7 +610,7 @@
   }
 
   .contact-meta-item {
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.68rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -636,7 +636,7 @@
   }
 
   footer p {
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.65rem;
     letter-spacing: 0.1em;
     color: var(--muted);
@@ -645,7 +645,7 @@
   footer a {
     color: var(--muted);
     text-decoration: none;
-    font-family: 'DM Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.65rem;
     letter-spacing: 0.1em;
     transition: color 0.2s;
