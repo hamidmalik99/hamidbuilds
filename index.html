@@ -194,21 +194,20 @@
 
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
-  .hero-stat-row {
-    position: absolute;
-    right: 48px;
-    bottom: 80px;
+  .hero-stats-inline {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    gap: 40px;
+    margin-top: 48px;
+    padding-top: 36px;
+    border-top: 1px solid var(--border);
     opacity: 0;
-    animation: fadeIn 1s ease 1s forwards;
+    animation: fadeUp 0.9s ease 0.8s forwards;
   }
 
-  .hero-stat { text-align: right; }
+  .hero-stat { text-align: left; }
   .hero-stat-num {
     font-family: 'Playfair Display', serif;
-    font-size: 2.4rem;
+    font-size: 2rem;
     color: var(--accent);
     line-height: 1;
   }
@@ -218,6 +217,7 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--muted);
+    margin-top: 4px;
   }
 
   /* ── SECTIONS ── */
@@ -802,8 +802,8 @@
 <text x="370" y="509" text-anchor="middle" class="lbl">Design · Build · Automate</text>
 </svg>
   </div>
-  <div class="hero-stat-row">
-  </div>
+<div class="hero-stats-inline">
+</div>
 <div class="hero-stat">
       <div class="hero-stat-num">40+</div>
       <div class="hero-stat-label">Sites Shipped</div>
