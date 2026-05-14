@@ -102,7 +102,23 @@
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%);
   }
+.hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.8s forwards;
+  }
+
+  @media (max-width: 768px) {
+    .hero-right { display: none; }
+  }
   .hero-eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.72rem;
