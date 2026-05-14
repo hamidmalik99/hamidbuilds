@@ -83,11 +83,11 @@
   .nav-links a:hover { color: var(--accent); }
 
   /* ── HERO ── */
-  .hero {
-    min-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+.hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
     padding: 100px 48px 80px;
     position: relative;
     overflow: hidden;
@@ -714,10 +714,11 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-grid-bg"></div>
-<div class="hero-eyebrow">Available Now &nbsp;·&nbsp; UTC+5 &nbsp;·&nbsp; 6+ Years &nbsp;·&nbsp; 40+ Projects</div>
+<div class="hero-grid-bg"></div>
+  <div class="hero-left">
+  <div class="hero-eyebrow">Available Now &nbsp;·&nbsp; UTC+5 &nbsp;·&nbsp; 6+ Years &nbsp;·&nbsp; 40+ Projects</div>
   <h1>One person.<br><em>Design. Code. Automate.</em></h1>
-  <p class="hero-sub">Most developers hand you a finished site and walk away. I design it, build it on WordPress, and wire up the automations that make it work — so you get a complete system, not just a page.</p>
+  <p class="hero-sub">Most developers hand you a finished site and walk away. I design it, build it on WordPress and wire up the automations that make it work — so you get a complete system, not just a page.</p>
   <div class="hero-cta">
     <a href="#work" class="btn-primary">See My Work</a>
     <a href="#contact" class="btn-outline">Get In Touch</a>
