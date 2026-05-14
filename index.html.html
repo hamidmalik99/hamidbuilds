@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hamid — WordPress Developer & Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #131920;
+    --bg3: #1a2230;
+    --border: rgba(0,212,255,0.1);
+    --text: #e6edf3;
+    --muted: #6e7681;
+    --accent: #00d4ff;
+    --accent2: #0099bb;
+    --white: #f0f6fc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.025; pointer-events: none; z-index: 999; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: rgba(13,17,23,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--accent); letter-spacing: 0.02em; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.75rem; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 100px 48px 80px; position: relative; overflow: hidden; }
+  .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%); }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+  .hero-right { display: flex; align-items: center; justify-content: center; opacity: 0; animation: fadeIn 1s ease 0.8s forwards; position: relative; z-index: 1; }
+  .hero-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 4.5rem); line-height: 1.1; color: var(--white); max-width: 700px; opacity: 0; animation: fadeUp 0.9s ease 0.35s forwards; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub { margin-top: 28px; max-width: 480px; color: var(--muted); font-size: 0.95rem; line-height: 1.8; opacity: 0; animation: fadeUp 0.9s ease 0.5s forwards; }
+  .hero-cta { margin-top: 40px; display: flex; gap: 16px; opacity: 0; animation: fadeUp 0.9s ease 0.65s forwards; }
+  .hero-stats-inline { display: flex; gap: 40px; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); opacity: 0; animation: fadeUp 0.9s ease 0.8s forwards; }
+  .hero-stat { text-align: left; }
+  .hero-stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent); line-height: 1; }
+  .hero-stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .btn-primary { background: var(--accent); color: #0d1117; padding: 14px 32px; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+  .btn-primary:hover { background: #33ddff; transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--text); padding: 14px 32px; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  section { padding: 120px 48px; }
+  .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 64px; display: flex; align-items: center; gap: 16px; }
+  .section-label::after { content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--accent); opacity: 0.4; }
+  #services { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .services-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 72px; }
+  .services-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); max-width: 420px; line-height: 1.15; }
+  .services-header p { max-width: 340px; color: var(--muted); font-size: 0.9rem; line-height: 1.8; padding-top: 8px; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .service-card { background: var(--bg2); padding: 40px 36px; transition: background 0.25s; position: relative; overflow: hidden; }
+  .service-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+  .service-card:hover { background: var(--bg3); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon { font-size: 1.4rem; margin-bottom: 20px; display: block; }
+  .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); margin-bottom: 10px; }
+  .service-card p { color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
+  #work { background: var(--bg); }
+  .work-intro { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 72px; }
+  .work-intro h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); line-height: 1.15; }
+  .work-intro p { color: var(--muted); font-size: 0.875rem; max-width: 280px; text-align: right; line-height: 1.8; }
+  .projects-list { display: flex; flex-direction: column; gap: 1px; }
+  .project-row { display: grid; grid-template-columns: 56px 1fr auto auto; align-items: center; gap: 32px; padding: 28px 0; border-bottom: 1px solid var(--border); cursor: pointer; text-decoration: none; color: inherit; transition: padding-left 0.25s; }
+  .project-row:first-child { border-top: 1px solid var(--border); }
+  .project-row:hover { padding-left: 12px; }
+  .project-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; }
+  .project-info h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--white); transition: color 0.2s; }
+  .project-row:hover .project-info h3 { color: var(--accent); }
+  .project-info p { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+  .project-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--border); color: var(--muted); }
+  .project-arrow { color: var(--muted); font-size: 1.2rem; transition: color 0.2s, transform 0.2s; }
+  .project-row:hover .project-arrow { color: var(--accent); transform: translate(4px, -4px); }
+  #process { background: var(--bg2); border-top: 1px solid var(--border); }
+  #process h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 72px; max-width: 480px; line-height: 1.15; }
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .step { background: var(--bg2); padding: 44px 32px; }
+  .step-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 24px; display: block; }
+  .step h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--white); margin-bottom: 12px; }
+  .step p { color: var(--muted); font-size: 0.85rem; line-height: 1.7; }
+  #stack { background: var(--bg); }
+  #stack h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 16px; }
+  .stack-intro { color: var(--muted); font-size: 0.9rem; margin-bottom: 56px; }
+  .stack-category { margin-bottom: 48px; }
+  .stack-category-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .stack-cards { display: flex; flex-wrap: wrap; gap: 10px; }
+  .stack-card { display: flex; align-items: center; gap: 10px; background: var(--bg2); border: 1px solid var(--border); padding: 12px 18px; transition: border-color 0.2s, background 0.2s; cursor: default; }
+  .stack-card:hover { border-color: var(--accent); background: var(--bg3); }
+  .stack-card img { width: 22px; height: 22px; object-fit: contain; flex-shrink: 0; }
+  .stack-card-name { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.06em; color: var(--text); white-space: nowrap; }
+  #contact { background: var(--bg2); border-top: 1px solid var(--border); text-align: center; }
+  #contact .section-label { justify-content: center; }
+  #contact .section-label::after { display: none; }
+  #contact h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5.5rem); color: var(--white); line-height: 1.05; margin-bottom: 24px; }
+  #contact h2 em { font-style: italic; color: var(--accent); }
+  #contact > p { color: var(--muted); font-size: 0.95rem; max-width: 400px; margin: 0 auto 48px; line-height: 1.8; }
+  .contact-form { max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; text-align: left; }
+  .contact-form input, .contact-form textarea, .contact-form select { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 14px 18px; font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+  .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: var(--accent); }
+  .contact-form textarea { resize: vertical; min-height: 120px; }
+  .contact-form select option { background: var(--bg3); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .contact-form button { width: 100%; background: var(--accent); color: #0d1117; border: none; padding: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-top: 6px; }
+  .contact-form button:hover { background: #33ddff; }
+  .contact-meta { margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; max-width: 540px; margin-left: auto; margin-right: auto; }
+  .contact-meta-item { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); line-height: 1.6; }
+  .contact-meta-item span { display: block; color: var(--text); font-size: 0.8rem; margin-top: 4px; }
+  footer { padding: 24px 48px; background: var(--bg); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); }
+  footer a { color: var(--muted); text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; transition: color 0.2s; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { gap: 18px; }
+    .hero { grid-template-columns: 1fr; padding: 100px 20px 64px; }
+    .hero-right { display: none; }
+    .hero-stats-inline { gap: 24px; }
+    section { padding: 80px 20px; }
+    .services-header { flex-direction: column; gap: 20px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .work-intro { flex-direction: column; gap: 12px; }
+    .work-intro p { text-align: left; }
+    .project-row { grid-template-columns: 40px 1fr auto; }
+    .project-tags { display: none; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-meta { flex-direction: column; gap: 20px; text-align: center; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+  @media (max-width: 480px) { .process-steps { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Hamid.</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">Available Now &nbsp;·&nbsp; UTC+5 &nbsp;·&nbsp; 6+ Years &nbsp;·&nbsp; 40+ Projects</div>
+    <h1>One person.<br><em>Design. Code. Automate.</em></h1>
+    <p class="hero-sub">Most developers hand you a finished site and walk away. I design it, build it on WordPress, and wire up the automations that make it work — so you get a complete system, not just a page.</p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">See My Work</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-stats-inline">
+      <div class="hero-stat">
+        <div class="hero-stat-num">40+</div>
+        <div class="hero-stat-label">Sites Shipped</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">6+</div>
+        <div class="hero-stat-label">Years Full-Stack</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">1</div>
+        <div class="hero-stat-label">Person. Full Stack.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <svg width="100%" viewBox="0 0 680 580" role="img" xmlns="http://www.w3.org/2000/svg">
+      <title>Full-stack developer illustration</title>
+      <desc>Abstract developer workspace with orbiting tech stack icons</desc>
+      <style>
+        .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;fill:#6e7681;letter-spacing:0.08em}
+        .lbl-accent{font-family:'IBM Plex Mono',monospace;font-size:11px;fill:#00d4ff;letter-spacing:0.08em}
+        @keyframes orbit1{from{transform:rotate(0deg) translateX(155px) rotate(0deg)}to{transform:rotate(360deg) translateX(155px) rotate(-360deg)}}
+        @keyframes orbit2{from{transform:rotate(60deg) translateX(155px) rotate(-60deg)}to{transform:rotate(420deg) translateX(155px) rotate(-420deg)}}
+        @keyframes orbit3{from{transform:rotate(120deg) translateX(155px) rotate(-120deg)}to{transform:rotate(480deg) translateX(155px) rotate(-480deg)}}
+        @keyframes orbit4{from{transform:rotate(180deg) translateX(155px) rotate(-180deg)}to{transform:rotate(540deg) translateX(155px) rotate(-540deg)}}
+        @keyframes orbit5{from{transform:rotate(240deg) translateX(155px) rotate(-240deg)}to{transform:rotate(600deg) translateX(155px) rotate(-600deg)}}
+        @keyframes orbit6{from{transform:rotate(300deg) translateX(155px) rotate(-300deg)}to{transform:rotate(660deg) translateX(155px) rotate(-660deg)}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        .o1{animation:orbit1 22s linear infinite;transform-origin:340px 290px}
+        .o2{animation:orbit2 22s linear infinite;transform-origin:340px 290px}
+        .o3{animation:orbit3 22s linear infinite;transform-origin:340px 290px}
+        .o4{animation:orbit4 22s linear infinite;transform-origin:340px 290px}
+        .o5{animation:orbit5 22s linear infinite;transform-origin:340px 290px}
+        .o6{animation:orbit6 22s linear infinite;transform-origin:340px 290px}
+        .floater{animation:float 4s ease-in-out infinite}
+      </style>
+      <circle cx="340" cy="290" r="155" fill="none" stroke="#00d4ff" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.2"/>
+      <circle cx="340" cy="290" r="90" fill="none" stroke="#00d4ff" stroke-width="0.5" stroke-dasharray="2 6" opacity="0.15"/>
+      <line x1="40" y1="290" x2="640" y2="290" stroke="#00d4ff" stroke-width="0.3" opacity="0.08"/>
+      <line x1="340" y1="40" x2="340" y2="540" stroke="#00d4ff" stroke-width="0.3" opacity="0.08"/>
+      <g class="floater">
+        <rect x="270" y="230" width="140" height="100" rx="6" fill="#131920" stroke="#00d4ff" stroke-width="1.5"/>
+        <rect x="278" y="238" width="124" height="76" rx="3" fill="#0d1117"/>
+        <rect x="285" y="248" width="60" height="3" rx="1" fill="#00d4ff" opacity="0.7"/>
+        <rect x="285" y="256" width="90" height="3" rx="1" fill="#6e7681" opacity="0.5"/>
+        <rect x="291" y="264" width="50" height="3" rx="1" fill="#00d4ff" opacity="0.4"/>
+        <rect x="291" y="272" width="70" height="3" rx="1" fill="#6e7681" opacity="0.4"/>
+        <rect x="285" y="280" width="40" height="3" rx="1" fill="#00d4ff" opacity="0.6"/>
+        <rect x="285" y="288" width="80" height="3" rx="1" fill="#6e7681" opacity="0.3"/>
+        <rect x="332" y="330" width="16" height="18" rx="2" fill="#1a2230" stroke="#00d4ff" stroke-width="0.8" opacity="0.8"/>
+        <rect x="318" y="346" width="44" height="6" rx="3" fill="#1a2230" stroke="#00d4ff" stroke-width="0.8" opacity="0.8"/>
+        <rect x="349" y="283" width="5" height="10" rx="1" fill="#00d4ff" opacity="0.9"><animate attributeName="opacity" values="0.9;0;0.9" dur="1.2s" repeatCount="indefinite"/></rect>
+      </g>
+      <g class="o1"><g transform="translate(340,290)"><rect x="-22" y="-22" width="44" height="44" rx="8" fill="#131920" stroke="#00d4ff" stroke-width="1"/><image href="https://cdn.simpleicons.org/wordpress/00d4ff" x="-13" y="-13" width="26" height="26"/></g></g>
+      <g class="o2"><g transform="translate(340,290)"><rect x="-22" y="-22" width="44" height="44" rx="8" fill="#131920" stroke="#00d4ff" stroke-width="1"/><image href="https://cdn.simpleicons.org/figma/00d4ff" x="-13" y="-13" width="26" height="26"/></g></g>
+      <g class="o3"><g transform="translate(340,290)"><rect x="-22" y="-22" width="44" height="44" rx="8" fill="#131920" stroke="#00d4ff" stroke-width="1"/><image href="https://cdn.simpleicons.org/woocommerce/00d4ff" x="-13" y="-13" width="26" height="26"/></g></g>
+      <g class="o4"><g transform="translate(340,290)"><rect x="-22" y="-22" width="44" height="44" rx="8" fill="#131920" stroke="#00d4ff" stroke-width="1"/><image href="https://cdn.simpleicons.org/php/00d4ff" x="-13" y="-13" width="26" height="26"/></g></g>
+      <g class="o5"><g transform="translate(340,290)"><rect x="-22" y="-22" width="44" height="44" rx="8" fill="#131920" stroke="#00d4ff" stroke-width="1"/><image href="https://cdn.simpleicons.org/n8n/00d4ff" x="-13" y="-13" width="26" height="26"/></g></g>
+      <g class="o6"><g transform="translate(340,290)"><rect x="-22" y="-22" width="44" height="44" rx="8" fill="#131920" stroke="#00d4ff" stroke-width="1"/><image href="https://cdn.simpleicons.org/stripe/00d4ff" x="-13" y="-13" width="26" height="26"/></g></g>
+      <circle cx="100" cy="110" r="3" fill="#00d4ff" opacity="0.3"/>
+      <circle cx="580" cy="110" r="3" fill="#00d4ff" opacity="0.3"/>
+      <circle cx="100" cy="470" r="3" fill="#00d4ff" opacity="0.3"/>
+      <circle cx="580" cy="470" r="3" fill="#00d4ff" opacity="0.3"/>
+      <rect x="52" y="258" width="110" height="32" rx="4" fill="#131920" stroke="#00d4ff" stroke-width="0.8"/>
+      <circle cx="68" cy="274" r="4" fill="#00d4ff" opacity="0.9"><animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/></circle>
+      <text x="80" y="279" class="lbl-accent">Available</text>
+      <rect x="518" y="258" width="110" height="32" rx="4" fill="#131920" stroke="#00d4ff" stroke-width="0.8"/>
+      <circle cx="534" cy="274" r="4" fill="#00d4ff" opacity="0.7"/>
+      <text x="546" y="279" class="lbl-accent">Full-Stack</text>
+      <rect x="270" y="500" width="200" height="28" rx="4" fill="#131920" stroke="#1a2230" stroke-width="1"/>
+      <text x="370" y="519" text-anchor="middle" class="lbl">Design · Build · Automate</text>
+    </svg>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-label">What I Do</div>
+  <div class="services-header">
+    <h2>Built for business. <em style="font-style:italic;color:var(--accent)">Engineered</em> to convert.</h2>
+    <p>Every project starts with understanding your goals — not just your design preferences. I build sites that work as hard as you do.</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card"><span class="service-icon">⬡</span><h3>Business & Agency Sites</h3><p>Custom WordPress sites built for credibility, speed, and lead generation. From landing pages to full multi-page builds.</p></div>
+    <div class="service-card"><span class="service-icon">◈</span><h3>WooCommerce Stores</h3><p>Complete e-commerce solutions — product pages, checkout optimisation, payment gateways, and inventory management.</p></div>
+    <div class="service-card"><span class="service-icon">◉</span><h3>Editorial & Media Platforms</h3><p>High-traffic news and content platforms with custom post types, RTL support, and architecture built for scale.</p></div>
+    <div class="service-card"><span class="service-icon">⬟</span><h3>Performance & SEO</h3><p>Speed audits, Core Web Vitals optimisation, schema markup, and technical SEO to get your site ranking and loading fast.</p></div>
+    <div class="service-card"><span class="service-icon">◇</span><h3>API & Automation</h3><p>Third-party integrations, N8N workflows, GoHighLevel CRM connections, and custom plugin development.</p></div>
+    <div class="service-card"><span class="service-icon">⬠</span><h3>Maintenance & Support</h3><p>Ongoing care packages — updates, backups, security monitoring, and priority support when you need it.</p></div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-label">Selected Work</div>
+  <div class="work-intro">
+    <h2>Projects that<br><em style="font-style:italic;color:var(--accent)">shipped.</em></h2>
+    <p>A cross-section of real client work — enterprise platforms, regulated industries, and niche marketplaces.</p>
+  </div>
+  <div class="projects-list reveal">
+    <a class="project-row" href="https://chughtailab.com" target="_blank" rel="noopener"><div class="project-num">01</div><div class="project-info"><h3>Chughtai Lab</h3><p>Enterprise-scale healthcare portal — Pakistan's leading diagnostic lab network</p></div><div class="project-tags"><span class="tag">Enterprise</span><span class="tag">Healthcare</span><span class="tag">WordPress</span></div><div class="project-arrow">↗</div></a>
+    <a class="project-row" href="https://akhbarona.com" target="_blank" rel="noopener"><div class="project-num">02</div><div class="project-info"><h3>Akhbarona</h3><p>High-traffic Arabic news platform — RTL layout, breaking news architecture, performance-tuned</p></div><div class="project-tags"><span class="tag">Editorial</span><span class="tag">RTL</span><span class="tag">Performance</span></div><div class="project-arrow">↗</div></a>
+    <a class="project-row" href="https://onlinepharmacy-4u.co.uk" target="_blank" rel="noopener"><div class="project-num">03</div><div class="project-info"><h3>Online Pharmacy 4U</h3><p>UK-regulated e-pharmacy — GPhC compliance, WooCommerce, trust-critical UX</p></div><div class="project-tags"><span class="tag">E-Commerce</span><span class="tag">Regulated</span><span class="tag">WooCommerce</span></div><div class="project-arrow">↗</div></a>
+    <a class="project-row" href="https://audeel.com" target="_blank" rel="noopener"><div class="project-num">04</div><div class="project-info"><h3>Audeel</h3><p>Premium WooCommerce store — high-end product experience with custom design</p></div><div class="project-tags"><span class="tag">WooCommerce</span><span class="tag">Premium</span><span class="tag">UI/UX</span></div><div class="project-arrow">↗</div></a>
+    <a class="project-row" href="https://biztelecoms.com" target="_blank" rel="noopener"><div class="project-num">05</div><div class="project-info"><h3>Biz Telecoms</h3><p>B2B telecom services site — lead generation focused, clean conversion architecture</p></div><div class="project-tags"><span class="tag">B2B</span><span class="tag">Lead Gen</span><span class="tag">WordPress</span></div><div class="project-arrow">↗</div></a>
+    <a class="project-row" href="https://srilance.lk" target="_blank" rel="noopener"><div class="project-num">06</div><div class="project-info"><h3>Srilance</h3><p>Custom freelance marketplace — Sri Lanka's talent platform, complex custom architecture</p></div><div class="project-tags"><span class="tag">Marketplace</span><span class="tag">Custom</span><span class="tag">WordPress</span></div><div class="project-arrow">↗</div></a>
+  </div>
+</section>
+
+<section id="process">
+  <div class="section-label">How I Work</div>
+  <h2>No surprises. Just <em style="font-style:italic;color:var(--accent)">results.</em></h2>
+  <div class="process-steps reveal">
+    <div class="step"><span class="step-num">01 — Discover</span><h3>Read the Brief Properly</h3><p>I audit your current site and research your market before writing a single line of code. Most developers skip this. I don't.</p></div>
+    <div class="step"><span class="step-num">02 — Design</span><h3>Figma First</h3><p>Mockups signed off before development starts. No surprises mid-build. You know exactly what you're getting.</p></div>
+    <div class="step"><span class="step-num">03 — Build</span><h3>Clean & Documented</h3><p>Native WordPress tools first. Custom code only where it's needed. Everything documented so you're never locked in.</p></div>
+    <div class="step"><span class="step-num">04 — Deliver</span><h3>Proper Handoff</h3><p>Staging review, QA checklist, training session if needed. You own the site — and you know how to use it.</p></div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="section-label">Tech Stack</div>
+  <h2>Tools I use <em style="font-style:italic;color:var(--accent)">daily.</em></h2>
+  <p class="stack-intro">The full toolkit — from CMS and page builders to automation and payment systems.</p>
+  <div class="stack-category reveal">
+    <div class="stack-category-label">CMS & Core Platform</div>
+    <div class="stack-cards">
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/wordpress/00d4ff" alt="WordPress"/><span class="stack-card-name">WordPress</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/woocommerce/00d4ff" alt="WooCommerce"/><span class="stack-card-name">WooCommerce</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/php/00d4ff" alt="PHP"/><span class="stack-card-name">PHP</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/mysql/00d4ff" alt="MySQL"/><span class="stack-card-name">MySQL</span></div>
+    </div>
+  </div>
+  <div class="stack-category reveal">
+    <div class="stack-category-label">Page Builders & Design</div>
+    <div class="stack-cards">
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/elementor/00d4ff" alt="Elementor"/><span class="stack-card-name">Elementor</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/figma/00d4ff" alt="Figma"/><span class="stack-card-name">Figma</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/adobephotoshop/00d4ff" alt="Photoshop"/><span class="stack-card-name">Photoshop</span></div>
+      <div class="stack-card"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="4" fill="#00d4ff" opacity="0.15"/><text x="11" y="16" text-anchor="middle" font-size="11" fill="#00d4ff" font-family="monospace" font-weight="bold">BD</text></svg><span class="stack-card-name">Breakdance</span></div>
+      <div class="stack-card"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="4" fill="#00d4ff" opacity="0.15"/><text x="11" y="16" text-anchor="middle" font-size="9" fill="#00d4ff" font-family="monospace" font-weight="bold">ACF</text></svg><span class="stack-card-name">ACF</span></div>
+    </div>
+  </div>
+  <div class="stack-category reveal">
+    <div class="stack-category-label">Frontend & Animation</div>
+    <div class="stack-cards">
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/javascript/00d4ff" alt="JavaScript"/><span class="stack-card-name">JavaScript</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/css3/00d4ff" alt="CSS3"/><span class="stack-card-name">CSS3</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/html5/00d4ff" alt="HTML5"/><span class="stack-card-name">HTML5</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/greensock/00d4ff" alt="GSAP"/><span class="stack-card-name">GSAP</span></div>
+    </div>
+  </div>
+  <div class="stack-category reveal">
+    <div class="stack-category-label">Payments & CRM</div>
+    <div class="stack-cards">
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/stripe/00d4ff" alt="Stripe"/><span class="stack-card-name">Stripe</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/paypal/00d4ff" alt="PayPal"/><span class="stack-card-name">PayPal</span></div>
+      <div class="stack-card"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="4" fill="#00d4ff" opacity="0.15"/><text x="11" y="16" text-anchor="middle" font-size="7.5" fill="#00d4ff" font-family="monospace" font-weight="bold">GHL</text></svg><span class="stack-card-name">GoHighLevel</span></div>
+    </div>
+  </div>
+  <div class="stack-category reveal">
+    <div class="stack-category-label">Automation & Analytics</div>
+    <div class="stack-cards">
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/n8n/00d4ff" alt="N8N"/><span class="stack-card-name">N8N</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/googletagmanager/00d4ff" alt="GTM"/><span class="stack-card-name">Google Tag Manager</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/googleanalytics/00d4ff" alt="GA4"/><span class="stack-card-name">Google Analytics</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/zapier/00d4ff" alt="Zapier"/><span class="stack-card-name">Zapier</span></div>
+    </div>
+  </div>
+  <div class="stack-category reveal">
+    <div class="stack-category-label">Dev Tools & Infrastructure</div>
+    <div class="stack-cards">
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/git/00d4ff" alt="Git"/><span class="stack-card-name">Git</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/github/00d4ff" alt="GitHub"/><span class="stack-card-name">GitHub</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/cloudflare/00d4ff" alt="Cloudflare"/><span class="stack-card-name">Cloudflare</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/cpanel/00d4ff" alt="cPanel"/><span class="stack-card-name">cPanel</span></div>
+      <div class="stack-card"><img src="https://cdn.simpleicons.org/postman/00d4ff" alt="Postman"/><span class="stack-card-name">Postman</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2>Let's build something <em>great.</em></h2>
+  <p>Tell me about your project. I'll reply within 24 hours with honest thoughts on what it needs — no sales pitch.</p>
+  <form class="contact-form" action="https://formspree.io/f/xqennqno" method="POST" onsubmit="handleSubmit(event)">
+    <input type="hidden" name="_subject" value="New project enquiry from hamidbuilds.com"/>
+    <input type="hidden" name="_next" value=""/>
+    <div class="form-row">
+      <input type="text" name="name" placeholder="Your Name" required/>
+      <input type="email" name="email" placeholder="Email Address" required/>
+    </div>
+    <select name="project_type" required>
+      <option value="" disabled selected>Project Type</option>
+      <option>New Website</option>
+      <option>WooCommerce Store</option>
+      <option>Redesign / Rebuild</option>
+      <option>Performance &amp; SEO</option>
+      <option>Maintenance &amp; Support</option>
+      <option>Other</option>
+    </select>
+    <select name="budget">
+      <option value="" disabled selected>Budget Range</option>
+      <option>Under $500</option>
+      <option>$500 – $1,500</option>
+      <option>$1,500 – $5,000</option>
+      <option>$5,000+</option>
+      <option>Let's discuss</option>
+    </select>
+    <textarea name="message" placeholder="Describe your project — what do you need, and when do you need it?"></textarea>
+    <button type="submit">Send Message →</button>
+  </form>
+  <div class="contact-meta">
+    <div class="contact-meta-item">Response Time<span>Within 24 hours</span></div>
+    <div class="contact-meta-item">Availability<span>30+ hrs / week</span></div>
+    <div class="contact-meta-item">Timezone<span>UTC+5 (PKT)</span></div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Hamid — WordPress Developer</p>
+  <a href="mailto:hello@hamidbuilds.com">hello@hamidbuilds.com</a>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+      if (res.ok) {
+        btn.textContent = 'Message Sent ✓';
+        btn.style.background = 'var(--accent2)';
+        btn.style.color = 'var(--white)';
+        form.reset();
+        setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; btn.style.color = ''; btn.disabled = false; }, 4000);
+      } else {
+        btn.textContent = 'Something went wrong — try again';
+        btn.style.background = '#5a2020';
+        btn.style.color = 'var(--white)';
+        btn.disabled = false;
+      }
+    } catch { btn.textContent = 'Network error — try again'; btn.disabled = false; }
+  }
+</script>
+</body>
+</html>
