@@ -201,28 +201,9 @@
 
   .project-card:hover { background: var(--bg2); }
 
-  .card-thumb {
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: var(--bg3);
-    position: relative;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .card-thumb-icon { font-size: 2rem; opacity: 0.15; }
-
-  .card-thumb-domain {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--accent);
-    letter-spacing: 0.06em;
-    opacity: 0.6;
-  }
+.card-thumb { display: none; }
+  .card-thumb-icon { display: none; }
+  .card-thumb-domain { display: none; }
 
   .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
 
