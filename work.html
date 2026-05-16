@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio — Hamid WordPress Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #131920;
+    --bg3: #1a2230;
+    --border: rgba(0,212,255,0.1);
+    --text: #e6edf3;
+    --muted: #6e7681;
+    --accent: #00d4ff;
+    --accent2: #0099bb;
+    --white: #f0f6fc;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(13,17,23,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 160px 48px 80px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .page-header-inner { position: relative; z-index: 1; }
+
+  .page-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .page-header h1 em { font-style: italic; color: var(--accent); }
+
+  .page-header p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 520px;
+    line-height: 1.8;
+  }
+
+  .project-count {
+    display: inline-block;
+    margin-top: 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+  }
+
+  .project-count span { color: var(--accent); }
+
+  /* INDUSTRY TABS */
+  .industry-tabs {
+    padding: 40px 48px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .industry-tabs-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .tabs-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .tab:hover { color: var(--text); border-color: rgba(0,212,255,0.3); }
+  .tab.active { border-color: var(--accent); color: var(--bg); background: var(--accent); }
+
+  /* RESULTS BAR */
+  .results-bar {
+    padding: 18px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .results-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .results-count span { color: var(--accent); }
+
+  /* GRID */
+  .portfolio-grid {
+    padding: 1px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    min-height: 400px;
+  }
+
+  /* CARD */
+  .project-card {
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s;
+  }
+
+  .project-card:hover { background: var(--bg2); }
+
+  .card-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg3);
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .card-thumb-icon { font-size: 2rem; opacity: 0.15; }
+
+  .card-thumb-domain {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    opacity: 0.6;
+  }
+
+  .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+
+  .card-meta {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .card-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border: 1px solid rgba(0,212,255,0.25);
+    color: var(--accent);
+  }
+
+  .card-industry {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .card-body p {
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .card-footer {
+    padding: 14px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-url {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: gap 0.2s;
+  }
+
+  .card-link:hover { gap: 10px; }
+
+  /* EMPTY */
+  .empty-state {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 48px;
+    text-align: center;
+    gap: 16px;
+    background: var(--bg);
+  }
+
+  .empty-state p {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .empty-state button {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    background: none;
+    cursor: pointer;
+  }
+
+  .empty-state button:hover { background: var(--accent); color: var(--bg); }
+
+  /* CTA */
+  .cta-strip {
+    padding: 80px 48px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .cta-strip h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--white);
+  }
+
+  .cta-strip h2 em { font-style: italic; color: var(--accent); }
+  .cta-strip p { color: var(--muted); font-size: 0.9rem; margin-top: 8px; max-width: 400px; }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0d1117;
+    padding: 14px 32px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: #33ddff; transform: translateY(-2px); }
+
+  footer {
+    padding: 24px 48px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p, footer a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 16px 20px; }
+    .nav-links { gap: 16px; }
+    .page-header { padding: 120px 20px 60px; }
+    .industry-tabs { padding: 24px 20px; }
+    .results-bar { padding: 14px 20px; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .cta-strip { flex-direction: column; padding: 60px 20px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Hamid.</a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="work.html" class="active">Work</a></li>
+    <li><a href="index.html#process">Process</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-eyebrow">Selected Work</div>
+    <h1>40+ projects.<br><em>Real clients. Real results.</em></h1>
+    <p>A full catalogue of client work across healthcare, e-commerce, media, construction, education, and more — spanning UK, Australia, Pakistan, Sri Lanka, and beyond.</p>
+    <div class="project-count">Showing <span id="count">40</span> projects</div>
+  </div>
+</div>
+
+<div class="industry-tabs">
+  <div class="industry-tabs-label">Filter by Industry</div>
+  <div class="tabs-row" id="tabs-row"></div>
+</div>
+
+<div class="results-bar">
+  <div class="results-count"><span id="results-num">40</span> projects found</div>
+</div>
+
+<div class="portfolio-grid" id="grid"></div>
+
+<div class="cta-strip">
+  <div>
+    <h2>Like what you see?<br><em>Let's work together.</em></h2>
+    <p>Every project starts with a conversation. Tell me what you're building and I'll tell you honestly how I can help.</p>
+  </div>
+  <a href="index.html#contact" class="btn-primary">Start a Project →</a>
+</div>
+
+<footer>
+  <p>© 2025 Hamid — WordPress Developer</p>
+  <a href="mailto:hello@hamidbuilds.com">hello@hamidbuilds.com</a>
+</footer>
+
+<script>
+const projects = [
+  { name:"Chughtai Lab", url:"https://chughtailab.com", desc:"Enterprise-scale healthcare portal for Pakistan's leading diagnostic lab network.", industry:"Healthcare", type:"Business Site" },
+  { name:"Chughtai Healthcare", url:"https://chughtaihealthcare.com", desc:"Group-level healthcare brand site for Chughtai Health network.", industry:"Healthcare", type:"Business Site" },
+  { name:"Chughtai Medical Centers", url:"https://chughtaimedicalcenters.com", desc:"Multi-location medical centers portal with appointment booking.", industry:"Healthcare", type:"Business Site" },
+  { name:"Chughtai Vaccination Centers", url:"https://chughtaivaccinationcenters.com", desc:"Vaccination centre directory and booking platform.", industry:"Healthcare", type:"Business Site" },
+  { name:"Online Pharmacy 4U", url:"https://onlinepharmacy-4u.co.uk", desc:"UK-regulated e-pharmacy with GPhC compliance and trust-critical UX.", industry:"Healthcare", type:"WooCommerce Store" },
+  { name:"NHS Prescriptions", url:"https://nhs-prescriptions.co.uk", desc:"NHS prescription ordering portal for UK patients.", industry:"Healthcare", type:"Business Site" },
+  { name:"Online Clinic 4U", url:"https://onlineclinic4u.co.uk", desc:"UK online clinic with appointment and consultation system.", industry:"Healthcare", type:"Business Site" },
+  { name:"4Life Care Chesterfield", url:"https://4lifecarechesterfield.co.uk", desc:"Care services website for a UK-based care provider.", industry:"Healthcare", type:"Business Site" },
+  { name:"Lifecare International Hospital", url:"https://lifecareinternationalhospital.com", desc:"Full hospital website with departments, doctors, and services.", industry:"Healthcare", type:"Business Site" },
+  { name:"SKHC Demo", url:"https://demo.skhc.com.pk", desc:"Healthcare centre demo build with custom post types and service listings.", industry:"Healthcare", type:"Business Site" },
+  { name:"Akhbarona", url:"https://akhbarona.com", desc:"High-traffic Arabic news platform with RTL layout and breaking news architecture.", industry:"Media", type:"Editorial Platform" },
+  { name:"Dmarkc", url:"https://dmarkc.com", desc:"Digital media and marketing company website.", industry:"Media", type:"Business Site" },
+  { name:"Icon Media", url:"https://www.iconmedia.info", desc:"Media agency website with portfolio and services.", industry:"Media", type:"Business Site" },
+  { name:"Audeel", url:"https://audeel.com", desc:"Premium mobile accessories WooCommerce store with custom design.", industry:"E-Commerce", type:"WooCommerce Store" },
+  { name:"Blake Rate Plastics", url:"https://blakerateplastics.com", desc:"E-commerce store for industrial plastic sheets with full product catalogue.", industry:"E-Commerce", type:"WooCommerce Store" },
+  { name:"Nano Distro Shop", url:"https://nanodistroshop.com", desc:"Perfume and fragrance e-commerce store.", industry:"E-Commerce", type:"WooCommerce Store" },
+  { name:"Cedar Cave Shop", url:"https://cedarcaveshop.com", desc:"Boutique perfume and lifestyle e-commerce store.", industry:"E-Commerce", type:"WooCommerce Store" },
+  { name:"MB Wears", url:"https://mbwears.com", desc:"Women's fashion boutique WooCommerce store.", industry:"E-Commerce", type:"WooCommerce Store" },
+  { name:"Outfitlinks", url:"https://outfitlinks.com", desc:"Custom front-end coded fashion linking platform.", industry:"E-Commerce", type:"Custom Frontend" },
+  { name:"Mr Streetz", url:"https://mrstreetz.com", desc:"Urban lifestyle and streetwear brand website.", industry:"E-Commerce", type:"Business Site" },
+  { name:"Pasha Shisha UK", url:"https://pashashisha.uk", desc:"Shisha lounge and club website with events and booking.", industry:"Hospitality", type:"Business Site" },
+  { name:"DC10 Rooms", url:"https://dc10rooms.co.uk", desc:"UK accommodation and rooms booking website.", industry:"Hospitality", type:"Business Site" },
+  { name:"Blake Rate", url:"https://blakerate.com", desc:"Corporate business website for Blake Rate group.", industry:"B2B", type:"Business Site" },
+  { name:"Biz Telecoms", url:"https://biztelecoms.com", desc:"B2B telecom services site focused on lead generation.", industry:"B2B", type:"Business Site" },
+  { name:"North Tone Recycle", url:"https://northtonerecycle.com", desc:"Recycling and waste management business website.", industry:"B2B", type:"Business Site" },
+  { name:"YFMCG", url:"https://yfmcg.com", desc:"FMCG distribution business website.", industry:"B2B", type:"Business Site" },
+  { name:"Leonine", url:"https://leonine.com.pk", desc:"Corporate business and services website.", industry:"B2B", type:"Business Site" },
+  { name:"Dawn Palm", url:"https://dawnpalm.com", desc:"Business website with clean professional design.", industry:"B2B", type:"Business Site" },
+  { name:"Eppco UK", url:"https://eppco.co.uk", desc:"UK business services company website.", industry:"B2B", type:"Business Site" },
+  { name:"The Back Office", url:"http://the-backoffice.com", desc:"Business back-office services and outsourcing website.", industry:"B2B", type:"Business Site" },
+  { name:"East Clay", url:"https://eastclay.com", desc:"Construction and clay products business website.", industry:"Construction", type:"Business Site" },
+  { name:"Buon Construction", url:"https://buonconstruction.com", desc:"Construction company website with project portfolio.", industry:"Construction", type:"Business Site" },
+  { name:"Praxis Construction PK", url:"https://praxisconstructionpk.com", desc:"Pakistani construction firm website with project showcase.", industry:"Construction", type:"Business Site" },
+  { name:"Srilance", url:"https://srilance.lk", desc:"Custom freelance marketplace — Sri Lanka's talent platform.", industry:"Marketplace", type:"Marketplace" },
+  { name:"Jane Hire", url:"https://janehire.com", desc:"Jobs and recruitment platform with listings and applications.", industry:"Marketplace", type:"Jobs Platform" },
+  { name:"Ammar Zahoor", url:"https://ammarzahoor.com", desc:"LMS and online education platform.", industry:"Education", type:"LMS" },
+  { name:"Hoorain Quran Academy", url:"https://hoorainquranacademyonline.com", desc:"Online Quran academy with course listings and enrolment.", industry:"Education", type:"Business Site" },
+  { name:"Illumina Energy", url:"https://illuminaenergy.com.au", desc:"Australian solar and renewable energy company website.", industry:"Energy", type:"Business Site" },
+  { name:"Discover Investments PK", url:"https://discoverinvestmentspk.com", desc:"Investment advisory and financial services website.", industry:"Finance", type:"Business Site" },
+  { name:"WitBit Lab", url:"https://witbitlab.com", desc:"Tech startup and software lab website.", industry:"Technology", type:"Business Site" },
+];
+
+const industries = ['All', ...[...new Set(projects.map(p => p.industry))].sort()];
+let active = 'All';
+
+function getDomain(url) {
+  try { return new URL(url).hostname.replace('www.', ''); } catch { return url; }
+}
+
+function buildTabs() {
+  const row = document.getElementById('tabs-row');
+  industries.forEach(ind => {
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (ind === 'All' ? ' active' : '');
+    btn.textContent = ind;
+    btn.onclick = () => {
+      active = ind;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      renderGrid();
+    };
+    row.appendChild(btn);
+  });
+}
+
+function renderGrid() {
+  const filtered = active === 'All' ? projects : projects.filter(p => p.industry === active);
+  document.getElementById('count').textContent = filtered.length;
+  document.getElementById('results-num').textContent = filtered.length;
+
+  const grid = document.getElementById('grid');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty-state"><p>No projects in this category yet.</p><button onclick="document.querySelectorAll('.tab')[0].click()">Show All</button></div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => `
+    <div class="project-card">
+      <div class="card-thumb">
+        <div class="card-thumb-icon">⬡</div>
+        <div class="card-thumb-domain">${getDomain(p.url)}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-badge">${p.type}</span>
+          <span class="card-industry">${p.industry}</span>
+        </div>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-url">${getDomain(p.url)}</span>
+        <a class="card-link" href="${p.url}" target="_blank" rel="noopener">Visit ↗</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+buildTabs();
+renderGrid();
+</script>
+</body>
+</html>
